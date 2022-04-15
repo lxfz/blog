@@ -24,12 +24,12 @@ img.emoji{
 .page-content {
         -webkit-font-smoothing: antialiased !important;
         text-rendering: optimizeLegibility !important;
-        font-family: "Segoe UI", SegoeUI, Roboto, "Segoe WP", "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif !important;
+        font-family: "Times New Roman", SegoeUI, Roboto, "Segoe WP", "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif !important;
 }
 
 // make non-headings slightly lighter
 .post-content p, .post-content li {
-   font-size: 20px;
+   font-size: 18px;
    color: #515151;
 }
 
@@ -147,7 +147,7 @@ h6:hover .anchor-link {
 .post-meta-title, .post-meta{
   margin-top: .25em !important;
   margin-bottom: .25em !important;
-  font-size: 105%;
+  font-size: 100%;
 }
 
 .page-description {
