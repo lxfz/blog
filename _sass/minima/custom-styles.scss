@@ -6,5 +6,21 @@
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
 
+blockquote {
+  color: #828282;
+  border-left: 4px solid #0ebd17;
+  padding-left: 15px;
+  font-size: 1.0rem;
+  font-style: normal;
+}
+
+.highlight pre, .highlight code {
+  background: #323443;
+  color: #f8f8f2;
+  font-size: 100%;
+  font-style: normal;
+}
+
+
 // If you want to turn off dark background for syntax highlighting, comment or delete the below line.
 @import "minima/fastpages-dracula-highlight"; 
