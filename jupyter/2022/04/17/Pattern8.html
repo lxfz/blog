@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Pattern: Tree Breadth First Search | HOME</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Pattern: Tree Breadth First Search" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="写点什么" />
+<meta property="og:description" content="写点什么" />
+<link rel="canonical" href="https://lxfz.github.io/blog/jupyter/2022/04/17/Pattern8.html" />
+<meta property="og:url" content="https://lxfz.github.io/blog/jupyter/2022/04/17/Pattern8.html" />
+<meta property="og:site_name" content="HOME" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-17T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Pattern: Tree Breadth First Search" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-04-17T00:00:00-05:00","datePublished":"2022-04-17T00:00:00-05:00","description":"写点什么","headline":"Pattern: Tree Breadth First Search","mainEntityOfPage":{"@type":"WebPage","@id":"https://lxfz.github.io/blog/jupyter/2022/04/17/Pattern8.html"},"url":"https://lxfz.github.io/blog/jupyter/2022/04/17/Pattern8.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://lxfz.github.io/blog/feed.xml" title="HOME" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">HOME</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Pattern: Tree Breadth First Search</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-04-17T00:00:00-05:00" itemprop="datePublished">
+        Apr 17, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/lxfz/blog/tree/master/_notebooks/2022-04-17-Pattern8.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/lxfz/blog/master?filepath=_notebooks%2F2022-04-17-Pattern8.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/lxfz/blog/blob/master/_notebooks/2022-04-17-Pattern8.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Flxfz%2Fblog%2Fblob%2Fmaster%2F_notebooks%2F2022-04-17-Pattern8.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/blog/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1.-Binary-Tree-Level-Order-Traversal-(easy)">1. Binary Tree Level Order Traversal (easy) </a></li>
+<li class="toc-entry toc-h2"><a href="#2.-Reverse-Level-Order-Traversal-(easy)">2. Reverse Level Order Traversal (easy) </a></li>
+<li class="toc-entry toc-h2"><a href="#3.-Zigzag-Traversal-(medium)">3. Zigzag Traversal (medium) </a></li>
+<li class="toc-entry toc-h2"><a href="#4.-Level-Averages-in-a-Binary-Tree-(easy)">4. Level Averages in a Binary Tree (easy) </a></li>
+<li class="toc-entry toc-h2"><a href="#5.-Minimum-Depth-of-a-Binary-Tree-(easy)">5. Minimum Depth of a Binary Tree (easy) </a></li>
+<li class="toc-entry toc-h2"><a href="#6.-Level-Order-Successor-(easy)">6. Level Order Successor (easy) </a></li>
+<li class="toc-entry toc-h2"><a href="#7.-Connect-Level-Order-Siblings-(medium)">7. Connect Level Order Siblings (medium) </a></li>
+<li class="toc-entry toc-h2"><a href="#8.-Problem-Challenge-1---Connect-All-Level-Order-Siblings-(medium)">8. Problem Challenge 1 - Connect All Level Order Siblings (medium) </a></li>
+<li class="toc-entry toc-h2"><a href="#9.-Problem-Challenge-2---Right-View-of-a-Binary-Tree-(easy)">9. Problem Challenge 2 - Right View of a Binary Tree (easy) </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-04-17-Pattern8.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.-Binary-Tree-Level-Order-Traversal-(easy)">
+<a class="anchor" href="#1.-Binary-Tree-Level-Order-Traversal-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Binary Tree Level Order Traversal (easy)<a class="anchor-link" href="#1.-Binary-Tree-Level-Order-Traversal-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a <code>binary tree</code>, populate an array to represent its level-by-level traversal.</p>
+<p>You should populate the values of all nodes of each level from left to right in separate sub-arrays.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution:</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">level_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="n">currentLevel</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      <span class="c1"># add the node to the current level</span>
+      <span class="n">currentLevel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentLevel</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Level order traversal: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">level_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Level order traversal: [[12], [7, 1], [9, 10, 5]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree. 
+This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal.</p>
+<p>We will also need O(N) space for the queue. Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-Reverse-Level-Order-Traversal-(easy)">
+<a class="anchor" href="#2.-Reverse-Level-Order-Traversal-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Reverse Level Order Traversal (easy)<a class="anchor-link" href="#2.-Reverse-Level-Order-Traversal-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree, populate an array to represent its level-by-level traversal in reverse order, i.e., the lowest level comes first.</p>
+<p>You should populate the values of all nodes in each level from left to right in separate sub-arrays.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">reverse_level_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="n">currentLevel</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      <span class="c1"># add the node to the current level</span>
+      <span class="n">currentLevel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="n">result</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">currentLevel</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Reverse level order traversal: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">reverse_level_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reverse level order traversal: deque([[9, 10, 5], [7, 1], [12]])
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal.</p>
+<p>We will also need O(N) space for the queue. Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Zigzag-Traversal-(medium)">
+<a class="anchor" href="#3.-Zigzag-Traversal-(medium)" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Zigzag Traversal (medium)<a class="anchor-link" href="#3.-Zigzag-Traversal-(medium)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree, populate an array to represent its zigzag level order traversal.</p>
+<p>You should populate the values of all nodes of the first level from left to right, 
+then right to left for the next level and keep alternating in the same manner for the following levels.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">zigzag_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="n">leftToRight</span> <span class="o">=</span> <span class="kc">True</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="n">currentLevel</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+
+      <span class="c1"># add the node to the current level based on the traverse direction</span>
+      <span class="k">if</span> <span class="n">leftToRight</span><span class="p">:</span>
+        <span class="n">currentLevel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">currentLevel</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">currentLevel</span><span class="p">))</span>
+    <span class="c1"># reverse the traversal direction</span>
+    <span class="n">leftToRight</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">leftToRight</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Zigzag traversal: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">zigzag_traverse</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Zigzag traversal: [[12], [1, 7], [9, 10, 5], [17, 20]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal.</p>
+<p>We will also need O(N) space for the queue. Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="4.-Level-Averages-in-a-Binary-Tree-(easy)">
+<a class="anchor" href="#4.-Level-Averages-in-a-Binary-Tree-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Level Averages in a Binary Tree (easy)<a class="anchor-link" href="#4.-Level-Averages-in-a-Binary-Tree-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree, populate an array to represent the averages of all of its levels.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">find_level_averages</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="n">levelSum</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      <span class="c1"># add the node's value to the running sum</span>
+      <span class="n">levelSum</span> <span class="o">+=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">val</span>
+      <span class="c1"># insert the children of current node to the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="c1"># append the current level's average to the result array</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">levelSum</span> <span class="o">/</span> <span class="n">levelSize</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Level averages are: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">find_level_averages</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Level averages are: [12.0, 4.0, 6.5]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N)O which is required for the queue.</p>
+<p>Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="5.-Minimum-Depth-of-a-Binary-Tree-(easy)">
+<a class="anchor" href="#5.-Minimum-Depth-of-a-Binary-Tree-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. Minimum Depth of a Binary Tree (easy)<a class="anchor-link" href="#5.-Minimum-Depth-of-a-Binary-Tree-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Find the minimum depth of a binary tree.</p>
+<p>The minimum depth is the number of nodes along the shortest path from the root node to the nearest leaf node.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">find_minimum_depth</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="n">minimumTreeDepth</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">minimumTreeDepth</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+
+      <span class="c1"># check if this is a leaf node</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">minimumTreeDepth</span>
+
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Tree Minimum Depth: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">find_minimum_depth</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Tree Minimum Depth: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">find_minimum_depth</span><span class="p">(</span><span class="n">root</span><span class="p">)))</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Tree Minimum Depth: 2
+Tree Minimum Depth: 3
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N)O which is required for the queue.</p>
+<p>Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Similar Problems</strong></p>
+<p>Problem 1: Given a binary tree, find its maximum depth (or height).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="6.-Level-Order-Successor-(easy)">
+<a class="anchor" href="#6.-Level-Order-Successor-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>6. Level Order Successor (easy)<a class="anchor-link" href="#6.-Level-Order-Successor-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree and a node, find the level order successor of the given node in the tree.</p>
+<p>The level order successor is the node that appears right after the given node in the level order traversal.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution:</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">find_successor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="c1"># insert the children of current node in the queue</span>
+    <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="c1"># break if we have found the key</span>
+    <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+      <span class="k">break</span>
+
+  <span class="k">return</span> <span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">queue</span> <span class="k">else</span> <span class="kc">None</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">find_successor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">find_successor</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7
+10
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) which is required for the queue.</p>
+<p>Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="7.-Connect-Level-Order-Siblings-(medium)">
+<a class="anchor" href="#7.-Connect-Level-Order-Siblings-(medium)" aria-hidden="true"><span class="octicon octicon-link"></span></a>7. Connect Level Order Siblings (medium)<a class="anchor-link" href="#7.-Connect-Level-Order-Siblings-(medium)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree, connect each node with its level order successor.</p>
+<p>The last node of each level should point to a null node.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+  <span class="c1"># level order traversal using 'next' pointer</span>
+  <span class="k">def</span> <span class="nf">print_level_order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">nextLevelRoot</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="k">while</span> <span class="n">nextLevelRoot</span><span class="p">:</span>
+      <span class="n">current</span> <span class="o">=</span> <span class="n">nextLevelRoot</span>
+      <span class="n">nextLevelRoot</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">nextLevelRoot</span><span class="p">:</span>
+          <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+            <span class="n">nextLevelRoot</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">left</span>
+          <span class="k">elif</span> <span class="n">current</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+            <span class="n">nextLevelRoot</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">right</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+      <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">connect_level_order_siblings</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">previousNode</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="c1"># connect all nodes of this level</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      
+      <span class="k">if</span> <span class="n">previousNode</span><span class="p">:</span>
+        <span class="n">previousNode</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">currentNode</span>
+      <span class="n">previousNode</span> <span class="o">=</span> <span class="n">currentNode</span>
+
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">connect_level_order_siblings</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Level order traversal using 'next' pointer: "</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">print_level_order</span><span class="p">()</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Level order traversal using 'next' pointer: 
+12 
+7 1 
+9 10 5 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N), which is required for the queue.</p>
+<p>Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="8.-Problem-Challenge-1---Connect-All-Level-Order-Siblings-(medium)">
+<a class="anchor" href="#8.-Problem-Challenge-1---Connect-All-Level-Order-Siblings-(medium)" aria-hidden="true"><span class="octicon octicon-link"></span></a>8. Problem Challenge 1 - Connect All Level Order Siblings (medium)<a class="anchor-link" href="#8.-Problem-Challenge-1---Connect-All-Level-Order-Siblings-(medium)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement</strong></p>
+<p>Connect All Level Order Siblings (medium) 
+Given a binary tree, connect each node with its level order successor.</p>
+<p>The last node of each level should point to the first node of the next level.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Solution</strong></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+
+<span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+  <span class="c1"># tree traversal using 'next' pointer</span>
+  <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Traversal using 'next' pointer: "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+      <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">connect_all_siblings</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="n">currentNode</span><span class="p">,</span> <span class="n">previousNode</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">previousNode</span><span class="p">:</span>
+      <span class="n">previousNode</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">currentNode</span>
+    <span class="n">previousNode</span> <span class="o">=</span> <span class="n">currentNode</span>
+
+    <span class="c1"># insert the children of current node in the queue</span>
+    <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+      <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+      <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">connect_all_siblings</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">print_tree</span><span class="p">()</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Traversal using 'next' pointer: 12 7 1 9 10 5 </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) which is required for the queue.</p>
+<p>Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), 
+therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="9.-Problem-Challenge-2---Right-View-of-a-Binary-Tree-(easy)">
+<a class="anchor" href="#9.-Problem-Challenge-2---Right-View-of-a-Binary-Tree-(easy)" aria-hidden="true"><span class="octicon octicon-link"></span></a>9. Problem Challenge 2 - Right View of a Binary Tree (easy)<a class="anchor-link" href="#9.-Problem-Challenge-2---Right-View-of-a-Binary-Tree-(easy)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Problem Statement:</strong></p>
+<p>Given a binary tree, return an array containing nodes in its right view.</p>
+<p>The right view of a binary tree is the set of nodes visible when the tree is seen from the right side.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Solution</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">tree_right_view</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+  <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+    <span class="n">levelSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">levelSize</span><span class="p">):</span>
+      <span class="n">currentNode</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+      <span class="c1"># if it is the last node of this level, add it to the result</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">levelSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="p">)</span>
+      <span class="c1"># insert the children of current node in the queue</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentNode</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-python"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">tree_right_view</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"Tree right view: "</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">+</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+
+
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Tree right view: 
+12 1 5 3 </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Time complexity:</strong></p>
+<p>The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree.</p>
+<p>This is due to the fact that we traverse each node once.</p>
+<p><strong>Space complexity:</strong></p>
+<p>The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal.</p>
+<p>We will also need O(N) space for the queue. Since we can have a maximum of N/2 nodes at any level 
+(this could happen only at the lowest level), therefore we will need O(N) space to store them in the queue.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/blog/jupyter/2022/04/17/Pattern8.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>写点什么</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
