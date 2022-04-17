@@ -327,7 +327,7 @@ table td { border: 1px solid #e8e8e8; }
 
 img.emoji { display: inline !important; vertical-align: baseline !important; }
 
-.post figcaption { text-align: center; font-size: .8rem; font-style: italic; color: light-grey; }
+.post figcaption { text-align: center; font-size: .8rem; font-style: normal; color: light-grey; }
 
 .page-content { -webkit-font-smoothing: antialiased !important; text-rendering: optimizeLegibility !important; font-family: "Times New Roman", SegoeUI, Roboto, "Segoe WP", "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif !important; }
 
@@ -429,6 +429,10 @@ pre code { font-size: 15px !important; }
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
+blockquote { color: #828282; border-left: 4px solid #0ebd17; padding-left: 15px; font-size: 1.0rem; font-style: normal; }
+
+.highlight pre, .highlight code { background: #323443; color: #f8f8f2; font-size: 100%; font-style: normal; }
+
 .language-python + .language-plaintext { border-left: 1px solid grey; margin-left: 1rem !important; }
 
 [class^="language-"]:not(.language-plaintext) pre, [class^="language-"]:not(.language-plaintext) code { background-color: #323443 !important; color: #f8f8f2; }
@@ -462,7 +466,7 @@ pre code { font-size: 15px !important; }
 
 .highlight .ge { text-decoration: underline; }
 
-.highlight .bp { font-style: italic; }
+.highlight .bp { font-style: normal; }
 
 .highlight .c, .highlight .ch, .highlight .cm, .highlight .cpf, .highlight .cs { color: #6272a4; }
 
@@ -470,7 +474,7 @@ pre code { font-size: 15px !important; }
 
 .highlight .kd, .highlight .kt, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: #8be9fd; }
 
-.highlight .kd, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { font-style: italic; }
+.highlight .kd, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { font-style: normal; }
 
 .highlight .fm, .highlight .na, .highlight .nc, .highlight .nf { color: #ace591; }
 
