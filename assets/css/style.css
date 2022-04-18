@@ -429,7 +429,7 @@ pre code { font-size: 15px !important; }
 
 .language-python + .language-plaintext { border-left: 1px solid grey; margin-left: 1rem !important; }
 
-[class^="language-"]:not(.language-plaintext) pre, [class^="language-"]:not(.language-plaintext) code { background-color: #323443 !important; color: #f8f8f2; }
+[class^="language-"]:not(.language-plaintext) pre, [class^="language-"]:not(.language-plaintext) code { background-color: #323443 !important; color: #e1e1d9; }
 
 .language-python + .language-plaintext code { background-color: white !important; }
 
@@ -446,15 +446,15 @@ pre code { font-size: 15px !important; }
 .code_cell table { width: auto; }
 
 /* Dracula Theme v1.2.5 https://github.com/zenorocha/dracula-theme Copyright 2016, All rights reserved Code licensed under the MIT license */
-.highlight { background: #323443 !important; color: #f8f8f2 !important; }
+.highlight { background: #323443 !important; color: #e1e1d9 !important; }
 
-.highlight pre, .highlight code { background: #323443; color: #f8f8f2; font-size: 110%; }
+.highlight pre, .highlight code { background: #323443; color: #e1e1d9; font-size: 110%; }
 
 .highlight .hll, .highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #e7997a; }
 
 .highlight .go { color: #44475a; }
 
-.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x, .highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no, .highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn, .highlight .nx, .highlight .py, .highlight .w, .highlight .bp { color: #f8f8f2; background-color: #323443 !important; }
+.highlight .err, .highlight .g, .highlight .l, .highlight .n, .highlight .x, .highlight .ge, .highlight .gr, .highlight .gh, .highlight .gi, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .gt, .highlight .ld, .highlight .no, .highlight .nd, .highlight .pi, .highlight .ni, .highlight .ne, .highlight .nn, .highlight .nx, .highlight .py, .highlight .w, .highlight .bp { color: #e1e1d9; background-color: #323443 !important; }
 
 .highlight .p { font-weight: bold; color: #66d9ef; }
 
@@ -466,15 +466,15 @@ pre code { font-size: 15px !important; }
 
 .highlight .c1 { color: gray; }
 
-.highlight .kd, .highlight .kt, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: #8be9fd; }
+.highlight .kd, .highlight .kt, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: #57b1c5; }
 
 .highlight .kd, .highlight .nb, .highlight .nl, .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { font-style: normal; }
 
-.highlight .fm, .highlight .na, .highlight .nc, .highlight .nf { color: #ace591; }
+.highlight .fm, .highlight .na, .highlight .nc, .highlight .nf { color: #82b46a; }
 
-.highlight .k, .highlight .o, .highlight .cp, .highlight .kc, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .nt, .highlight .ow { color: #ff79c6; }
+.highlight .k, .highlight .o, .highlight .cp, .highlight .kc, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .nt, .highlight .ow { color: #bd2a7d; }
 
-.highlight .kc { color: #ace591; }
+.highlight .kc { color: #82b46a; }
 
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #bd93f9; }
 
@@ -487,5 +487,7 @@ p code { font-size: 19px; }
 blockquote { color: #828282; border-left: 4px solid #0ebd17; padding-left: 15px; font-size: 1.0rem; font-style: normal; }
 
 .highlight pre, .highlight code { background: #323443; color: #f8f8f2; font-size: 100%; font-style: normal; }
+
+p code { font-size: 15px; }
 
 /*# sourceMappingURL=style.css.map */
