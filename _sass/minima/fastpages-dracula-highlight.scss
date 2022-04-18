@@ -4,16 +4,30 @@
 $dt-gray-dark: #282a36;  // Background
 $dt-code-cell-background: #323443;
 $dt-gray: #44475a;       // Current Line & Selection
-$dt-gray-light: #f8f8f2; // Foreground
+$dt-gray-light: #e1e1d9; // Foreground
 $dt-blue: #6272a4;       // Comment
-$dt-cyan: #8be9fd;
+$dt-cyan: #57b1c5;
 $dt-green: #50fa7b;
 $dt-orange: #ffb86c;
-$dt-pink: #ff79c6;
+$dt-pink: #bd2a7d;
 $dt-purple: #bd93f9;
 $dt-red: #ff5555;
 $dt-yellow: #f1fa8c;
-$dt-green-light: rgb(172, 229, 145);
+$dt-green-light: rgb(130, 180, 106);
+
+// $dt-gray-dark: #282a36;  // Background
+// $dt-code-cell-background: #323443;
+// $dt-gray: #44475a;       // Current Line & Selection
+// $dt-gray-light: #f8f8f2; // Foreground
+// $dt-blue: #6272a4;       // Comment
+// $dt-cyan: #8be9fd;
+// $dt-green: #50fa7b;
+// $dt-orange: #ffb86c;
+// $dt-pink: #ff79c6;
+// $dt-purple: #bd93f9;
+// $dt-red: #ff5555;
+// $dt-yellow: #f1fa8c;
+// $dt-green-light: rgb(172, 229, 145);
 
 .language-python + .language-plaintext {
     border-left: 1px solid grey;
