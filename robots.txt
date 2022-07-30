@@ -1,1 +1,1 @@
-Sitemap: https://lxfz.github.io/blog/sitemap.xml
+Sitemap: https://lxfz.github.io/sitemap.xml
